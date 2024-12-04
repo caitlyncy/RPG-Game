@@ -1,3 +1,5 @@
-public class Melee {
-    
+public class Melee extends Weapons{
+    public Melee(){
+        super();
+    }
 }

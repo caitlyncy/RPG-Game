@@ -150,7 +150,12 @@ public class Characters {
         this.pic = pic;
     }
 
-
+    public ImageIcon getPic(){
+        return pic;
+    }
+    public void setPic (ImageIcon pic) {
+        this.pic= pic;
+    }
     
     public Characters dam(int dam){
         setDAM(dam);

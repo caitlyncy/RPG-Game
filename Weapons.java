@@ -5,12 +5,16 @@ public class Weapons {
 int x, y, w, h,dam, durability, dps;
 private ImageIcon pic;
 private String type, character;
+private int dx;
+private int dy;
 
 public Weapons(){
 x=0;
 y=0;
 w=0;
 h=0;
+dx=0;
+dy=0;
 dam=0;
 durability=0;
 dps=0;
@@ -26,6 +30,8 @@ public Weapons(int xV, int yV, int wV, int hV, int d, int dur, int dp, ImageIcon
     y=yV;
     w=wV;
     h=hV;
+    dx=0;
+    dy=0;
     dam= d;
     durability = dur;
     pic=p;
@@ -34,7 +40,19 @@ public Weapons(int xV, int yV, int wV, int hV, int d, int dur, int dp, ImageIcon
     character = c;
 
 }
+public int getDx() {
+    return this.dx;
+  }
+  public void setDx(int value) {
+    this.dx = value;
+  }
 
+  public int getDy() {
+    return this.dy;
+  }
+  public void setDy(int dy) {
+    y+= dy;
+  }
 public void drawWeap (Graphics g2d) {
     g2d.drawImage(pic.getImage(),x,y,w,h,null);
 

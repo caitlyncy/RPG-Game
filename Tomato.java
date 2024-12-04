@@ -1,6 +1,6 @@
 import javax.swing.ImageIcon;
 
-public class Tomato extends Ranged {
+public class Tomato extends Weapons {
     public Tomato(){
         super();
     }
