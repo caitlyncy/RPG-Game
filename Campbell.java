@@ -7,7 +7,7 @@ public class Campbell extends Characters {
     }
 
     public Campbell(int x, int y){
-       super(x,y, 100,100,2,7,76,36, new ImageIcon("Campbell.png"));
+       super(x,y, 100,100,2,7,76,36, new ImageIcon("Campbell.png"), "Campbell");
     }
     public String toString(){
         return "Campbell";

@@ -6,7 +6,7 @@ public class Caitlyn extends Characters{
     }
 
     public Caitlyn(int x, int y){
-        super(x,y, 100,100, 2,7,76,2, new ImageIcon("Caitlyn.png"));
+        super(x,y, 100,100, 2,7,76,2, new ImageIcon("Caitlyn.png"),"Caitlyn");
     }
     public String toString(){
         return "Caitlyn";

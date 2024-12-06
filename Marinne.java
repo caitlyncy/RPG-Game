@@ -6,7 +6,7 @@ public class Marinne extends Characters{
     }
 
     public Marinne(int x, int y){
-        super(x,y,100,100,2,7,76,56, new ImageIcon("Marinne.png"));
+        super(x,y,100,100,2,7,76,56, new ImageIcon("Marinne.png"), "Marinne");
     }
     public String toString(){
         return "Marinne";

@@ -5,6 +5,7 @@ public class Ranged {
     private int x, y,w,h;
     private int speed;
     private ImageIcon image;
+    private String type;
 
     public Ranged() {
         x=0;
@@ -12,16 +13,20 @@ public class Ranged {
         w=0;
         h=0;
         speed=0;
+        type = "";
+
         image = new ImageIcon(); 
     }
 
-    public Ranged(int xV, int yV, int wV, int hV, int s, ImageIcon p) {
+    public Ranged(int xV, int yV, int wV, int hV, int s, ImageIcon p,String t) {
         x=xV;
         y=yV;
         w=wV;
         h=hV;
         speed=s;
         image=p;
+        type = t;
+
     }
 
     public void drawProj (Graphics g2d) {
@@ -40,7 +45,13 @@ public class Ranged {
     //     this.speed = 3;
     //     this.image = new ImageIcon();
     // }
+    public String getType() {
+        return type;
+    }
 
+    public void setType(String type) {
+        this.type = type;
+    }
     public void move() {
         x += speed; // Move weapon to the left
     }

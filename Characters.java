@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Characters {
     private int x,y,w,h, speed, health, damage, stam, dx, dy;
     private ImageIcon pic;
+    private String type;
     private ArrayList <Weapons> weaponList;
     private Weapons weap;
 
@@ -21,6 +22,7 @@ public class Characters {
         dx=0;
         dy=0;
         pic = new ImageIcon(); 
+        type="";
     }
     public Characters(int xV, int yV, int width, int height, int sp, int hea, int dam, int st, ImageIcon p, Weapons we, ArrayList<Weapons> list){
         x=xV;
@@ -44,7 +46,7 @@ public class Characters {
         public void setWeapons(ArrayList <Weapons> list){
         weaponList=list;
         }
-    public Characters(int xV, int yV, int width, int height, int sp, int hea, int dam, int st, ImageIcon p){
+    public Characters(int xV, int yV, int width, int height, int sp, int hea, int dam, int st, ImageIcon p, String t){
     x=xV;
     y=yV;
     w=width;
@@ -56,6 +58,7 @@ public class Characters {
     pic= p;
     dx=0;
     dy=0;
+    type=t;
     }
     public void drawChar (Graphics g2d) {
         g2d.drawImage(pic.getImage(),x,y,w,h,null);
@@ -175,5 +178,11 @@ public String toString(){
     return "Haven't set toString Yet!";
 
 }
-    
+ public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

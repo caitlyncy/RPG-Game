@@ -50,9 +50,8 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
         key = -1;
         x = 0;
         y = 0;
-
         curtime = 0;
-        // timer=0;
+         timer=0;
         // bestTime=0;
         curtime = timer;
         saveFile = new File("saved_file2.0.txt");
@@ -77,6 +76,7 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
         charList = setCharList();
         enemies = setEs();
         System.out.println(enemies.size());
+        
     }
 
     public void createFile() {
@@ -119,13 +119,12 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
         }
 
     }
-
     public void writeToFile() {
         FileWriter myWriter;
         try {
             myWriter = new FileWriter(saveFile);
             myWriter.write((bestTime) + "\n");
-            // myWriter.write(new DecimalFormat("#0.00").format(curtime));
+             myWriter.write(new DecimalFormat("#0.00").format(curtime));
             myWriter.close();
             System.out.println("Successfully wrote to file");
         } catch (IOException e) {
@@ -141,9 +140,10 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
         Queue<Enemy> temp = new LinkedList<>();
         temp.add(new Doughboy(600, 400, 200, 200));
         temp.add(new Doughboy(720, 400, 200, 200));
-        temp.add(new Doughboy(850, 400, 200, 200));
+        temp.add(new Doughboy(850, 700, 200, 200));
+        temp.add(new Doughboy(950, 500, 200, 200));
+        temp.add(new Doughboy(850, 200, 200, 200));
         temp.add(new Doughboy(950, 400, 200, 200));
-
         return temp;
     }
 
@@ -153,26 +153,42 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
         // // int startY = player.getY() + player.getH() / 8;
         // // rangeds.setDx(-5);
         // // System.out.println("shooting");
+        if (player.getType().equals("Caitlyn")) {
+            rangeds.add(new TomatoProjectile(weapon.getX(), weapon.getY()));
 
-        // }
-        rangeds.add(new TomatoProjectile(weapon.getX(), weapon.getY()));
+        }
+        if (player.getType().equals("Marinne")) {
+            rangeds.add(new WaterProjectile(weapon.getX(), weapon.getY()));
+
+        }if (player.getType().equals("Aliki")) {
+            rangeds.add(new GraterProjectile(weapon.getX(), weapon.getY()));
+
+        }if (player.getType().equals("Campbell")) {
+            rangeds.add(new RollerProjectile(weapon.getX(), weapon.getY()));
+
+        }
+
+
 //if check weapon-> give the weapon its respective projectile.
     }
+    private void pAttack(Graphics g2d){
 
-    private void updateWeapon() {
+    }
+    private void updateWeapon(Graphics g2d) {
         for (int i = 0; i < rangeds.size(); i++) {
             Ranged rang = rangeds.get(i);
+            Rectangle r = new Rectangle(rang.getX(), rang.getY(), rang.getW(), rang.getH());
+            Rectangle e = new Rectangle(enemies.element().getX(), enemies.element().getY(), enemies.element().getW(), enemies.element().getH());
             rang.move(); // Move the weapon
-            for (Enemy enemy : enemies) {
-                if (rang.getX() >= enemy.getX() && rang.getX() <= (enemy.getX() + enemy.getW()) &&
-                        rang.getY()
-                         >= enemy.getY() && rang.getY() <= (enemy.getY() + enemy.getH())) {
-                    enemies.remove(enemy); // Remove the enemy on collision
+            rang.drawProj(g2d);
+                if (r.intersects(e)) {
+                    enemies.remove(); // Remove the enemy on collision
                     rangeds.remove(i); // Remove the projectile on collision
-                    i--; // Adjust index due to removal
-                    break; // Exit the loop after a hit
+                    i--;
+                    System.out.println("this is working?a");
+                    break; 
                 }
-            }
+            
 
             // Remove projectile if it goes off screen
             if (rang.isOffScreen(getWidth())) {
@@ -237,7 +253,9 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
             weapon.setX(player.getX() + 60);
             weapon.setY(player.getY());
 
+
         }
+        
     }
     /*
      * public void drawPW(Graphics g2d) {
@@ -255,20 +273,25 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
         switch (screen) {
             case "start":
                 drawStartScreen(g2d);
+                drawTime(g2d);
+
                 break;
             case "selection":
                 drawSelectScreen(g2d);
+                drawTime(g2d);
                 break;
             case "weaponSelect":
                 drawWeaponSelectScreen(g2d);
+                drawTime(g2d);
                 break;
             case "gameplay":
                 drawGameScreen(g2d);
+                drawTime(g2d);
+
         }
     }
 
     public void drawGameScreen(Graphics g2d) {
-
         if (player != null)
 
             // drawDoughboys(g2d);
@@ -290,13 +313,10 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
         if (player.getY() > getHeight() - player.getH())
             player.setY(getHeight() - player.getH());
         // Draw projectiles
-        for (Ranged rang : rangeds) {
-            rang.drawProj(g2d);
-            rang.move();
-        }
+
+        attack(g2d);
 
 
-        repaint();
 
         // }
         if (enemies.peek() != null) {
@@ -361,11 +381,16 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
      * return temp;
      * }
      */
+    public void drawTime(Graphics g2d){
+        g2d.setColor(Color.black);
+        g2d.setFont(new Font("Broadway", Font.BOLD, 75));
+        curtime = ((System.currentTimeMillis() - time )/ 1000);
+        g2d.drawString(new DecimalFormat("#0.00").format(curtime), 20, 90);
+    }
     public void drawStartScreen(Graphics g2d) {
         g2d.setFont(new Font("Broadway", Font.BOLD, 75));
-        g2d.drawString("Best Time: " + lastBestTime, 100, 500);
-        curtime = (System.currentTimeMillis() - time / 1000);
-        g2d.drawString(new DecimalFormat("#0.00").format(curtime), 20, 90);
+        g2d.drawString("Longest Time Taken: " + lastBestTime, 100, 500);
+   
         for (Characters c : charList) {
             c.drawChar(g2d);
 
@@ -423,14 +448,17 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
         }
     }
 
-    public void attack() {
+    public void attack(Graphics g2d) {
         // if(player.getWeapon() instanceof Ranged){
         // rangedWeap.add(new Ranged(player.getWeapon().getDamage(),
         // player.getWeapon().getDurability(), player.getWeapon().getDPS(),
         // player.getWeapon().getPic()));
         // shootWeapon(); // Move and handle projectiles
-        updateWeapon(); // Move and handle projectiles
+        updateWeapon(g2d); // Move and handle projectiles
 
+        
+
+        
         System.out.println("Attacking");
     }
 
@@ -493,9 +521,8 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
             screen = "gameplay";
 
         }
-
+        
         if (screen == "gameplay" && key == 32) {
-            attack();
             shootWeapon();
 
         }

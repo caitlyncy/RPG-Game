@@ -9,6 +9,6 @@ public class TomatoProjectile extends Ranged{
     }
 
     public TomatoProjectile(int x, int y){
-        super(x,y,50,50,5,new ImageIcon("Tomato.png"));
+        super(x,y,50,50,2,new ImageIcon("Tomato.png"),"Caitlyn" );
     }
 }

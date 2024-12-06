@@ -10,7 +10,7 @@ public class Doughboy extends Enemy {
 
     }
 public Doughboy(int x, int y, int w, int h){
-    super(x,y,200,200,2,172,200,5, new ImageIcon("Doughboy.png"), new Tomato());
+    super(x,y,200,200,2,172,200,5, new ImageIcon("Doughboy.png"), new Tomato(), "Doughboy");
 }
 public void setdx(int dx1){
     move(dx1);
