@@ -172,7 +172,7 @@ public class Game extends JPanel implements Runnable, KeyListener, MouseListener
 //if check weapon-> give the weapon its respective projectile.
     }
     private void pAttack(Graphics g2d){
-
+//blahslksj
     }
     private void updateWeapon(Graphics g2d) {
         for (int i = 0; i < rangeds.size(); i++) {
